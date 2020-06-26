@@ -1,0 +1,15 @@
+.BoardContainer {
+    box-sizing: border-box;
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    padding-top: 100px;
+    overflow: scroll;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    grid-gap: 10px;
+
+    background-color: #FFA53C;
+}

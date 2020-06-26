@@ -1,0 +1,49 @@
+.PersonalCard {
+    background-color: white;
+    color: black;
+    font-family: Roboto;
+    padding: 25px 20px;
+    border-radius: 15px;
+
+    &-user-name {
+        font-weight: bold;
+        text-align: center;
+        font-size: 25px;
+    }
+
+    &-meta-text {
+        margin-top: 15px;
+        font-size: 15px;
+        font-weight: lighter;
+        font-family: Crimson Text;
+    }
+
+    &-button {
+        display: block;
+
+        border: none;
+        margin: 20px auto 0px auto;
+        padding: 8px 25px;
+        border-radius: 30px;
+
+        font-weight: bold;
+        font-size: 12px;
+        background-color: #1D63FF;
+
+        color: #fff;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            background: #1449BA;
+        }
+
+        &:active {
+            background: #5FA4F5;
+        }
+    }
+
+
+}

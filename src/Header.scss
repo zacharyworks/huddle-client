@@ -1,0 +1,35 @@
+header {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    position: fixed;
+    flex-direction: row;
+    padding: 35px 15px 10px 15px;
+    -webkit-app-region: drag;
+    cursor: default;
+}
+
+#head-left,
+#head-right {
+    padding-bottom: 5px;
+    border-bottom: 1px solid grey;
+}
+
+#head-right {
+    flex-grow: 1;
+    position: relative;
+    text-align: right;
+}
+
+#head-right>span {
+    position: absolute;
+    bottom: 5px;
+    margin-left: -40px;
+}
+
+#head-left {
+    flex-grow: 1;
+    text-align: left;
+    font-weight: bold;
+    font-size: 24px;
+}

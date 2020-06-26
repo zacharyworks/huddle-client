@@ -1,0 +1,74 @@
+.Todo {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    min-width: 150px;
+    align-items: center;
+
+
+    &-checkbox {
+        padding-top: 1px;
+    }
+
+    &-value {
+        flex-grow: 4;
+        text-align: left;
+        cursor: default;
+    }
+
+    &-count {
+        padding: 0 5px;
+        font-size: 12px;
+        text-align: right;
+        color: #bebebe;
+        cursor: default;
+    }
+
+    &-count>span {
+        font-size: 11px;
+    }
+
+    &-selected {
+        background-color: #555555;
+    }
+}
+
+.checkbox {
+    display: flex;
+    position: relative;
+    padding-right: 5px;
+
+
+    >input {
+        height: 12px;
+        width: 12px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+        border: 1.5px solid #bebebe;
+        border-radius: 3px;
+        outline: none;
+        transition-duration: 0.5s;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    >input:checked {
+        border: 1px solid #5ca1ff;
+        background-color: #5ca1ff;
+    }
+
+    >input:checked+span::before {
+        content: "✔";
+        position: absolute;
+        top: 8px;
+        left: 6.5px;
+        font-size: 8px;
+        line-height: 0.8;
+        color: #15253b;
+        pointer-events: none;
+
+    }
+}
