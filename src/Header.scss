@@ -4,7 +4,7 @@ header {
     width: 100%;
     position: fixed;
     flex-direction: row;
-    padding: 35px 15px 10px 15px;
+    padding: 35px 10px 10px 10px;
     -webkit-app-region: drag;
     cursor: default;
 }
@@ -12,13 +12,26 @@ header {
 #head-left,
 #head-right {
     padding-bottom: 5px;
-    border-bottom: 1px solid grey;
+}
+
+#head-left {
+    flex-grow: 1;
+    text-align: left;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 #head-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
     flex-grow: 1;
     position: relative;
     text-align: right;
+    font-size: 12px;
+}
+#head-right > div {
+    padding-left: 15px;
 }
 
 #head-right>span {
@@ -27,9 +40,4 @@ header {
     margin-left: -40px;
 }
 
-#head-left {
-    flex-grow: 1;
-    text-align: left;
-    font-weight: bold;
-    font-size: 24px;
-}
+

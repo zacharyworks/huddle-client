@@ -1,0 +1,65 @@
+.BoardCard {
+
+    color: black;
+    font-family: Roboto;
+    padding: 7px 15px;
+
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    height: 25px;
+
+    &-first {
+        border-radius: 15px 15px 0 0;
+    }
+
+    &-last {
+        border-radius: 0 0 15px 15px;
+    }
+
+    &-white {
+        background-color: #ffffff;
+    }
+    &-offWhite {
+        background-color: #EDEDED;
+    }
+
+    &-left {
+        font-weight: bold;
+        padding-top: 5px;
+    }
+
+    &-right {
+
+    }
+
+    &-button {
+        display: block;
+        align-content: center;
+        justify-content: center;
+
+        height: 25px;
+
+        border: none;
+        padding: 3px 20px;
+        border-radius: 30px;
+
+        font-weight: bold;
+        font-size: 12px;
+        background-color: #1D63FF;
+
+        color: #fff;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            background: #1449BA;
+        }
+
+        &:active {
+            background: #5FA4F5;
+        }
+    }
+}

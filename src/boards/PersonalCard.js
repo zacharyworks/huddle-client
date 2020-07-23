@@ -3,16 +3,36 @@ import './PersonalCard.scss'
 
 class PersonalCard extends Component {
 
+  selectBoard() {
+    this.props.conn.send(
+      `{
+        "ActionSubset":"Session",
+        "ActionType":"OpenBoard",
+        "ActionPayload":
+          ${JSON.stringify(this.props.board)}
+      }`
+    )
+    this.props.toggleDash();
+    this.props.setBoardName(this.props.board.name);
+  }
+
     render() {
+      if (!this.props.user) {
+        return null
+      }
       return(
         <div className="PersonalCard">
-            <div className="PersonalCard-user-name">
-                Zachary Briggs
+            <div className="PersonalCard-left">
+              {this.props.user.name}
             </div>
-
-
-            <button className="PersonalCard-button">Personal Board</button>
-
+          <div className="PersonalCard-right">
+            <button
+              className="PersonalCard-button"
+              onClick={e => this.selectBoard()}
+            >
+              My Todos
+            </button>
+          </div>
         </div>
       );
     }

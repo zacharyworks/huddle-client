@@ -1,29 +1,36 @@
 .PersonalCard {
-    background-color: white;
+
     color: black;
     font-family: Roboto;
-    padding: 25px 20px;
+    padding: 6px 10px 6px 15px;
+
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    height: 25px;
+
+    background-color: #ffffff;
     border-radius: 15px;
 
-    &-user-name {
+    &-left {
         font-weight: bold;
-        text-align: center;
-        font-size: 25px;
+        padding-top: 5px;
     }
 
-    &-meta-text {
-        margin-top: 15px;
-        font-size: 15px;
-        font-weight: lighter;
-        font-family: Crimson Text;
+    &-right {
+
     }
+
 
     &-button {
         display: block;
+        align-content: center;
+        justify-content: center;
+
+        height: 25px;
 
         border: none;
-        margin: 20px auto 0px auto;
-        padding: 8px 25px;
+        padding: 3px 20px;
         border-radius: 30px;
 
         font-weight: bold;
@@ -44,6 +51,4 @@
             background: #5FA4F5;
         }
     }
-
-
 }

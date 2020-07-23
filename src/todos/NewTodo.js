@@ -22,8 +22,10 @@ class NewTodo extends Component {
             "ActionType":"Create",
             "ActionPayload":{
                 "value":"${this.state.value}",
-                "parentFK":${this.props.parentFK}
-                }}
+                "parentFK":${this.props.parentFK},
+                "boardFK":${this.props.boardFK}
+                }
+         }
         `);
         // Empty the text field
         this.setState({value:''});
@@ -34,7 +36,7 @@ class NewTodo extends Component {
         return(
             <div className="AddTodo">
                 <form className="AddTodo-Form" onSubmit={this.handleSubmit}>
-                    <input tabIndex="1" type="text" placeholder="new todo" value={this.state.value} onChange={this.handleChange}/>
+                    <input tabIndex="1" type="text" placeholder={this.props.placeholder} value={this.state.value} onChange={this.handleChange}/>
                     <input type="submit" value="+" />
                 </form>
             </div>

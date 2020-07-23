@@ -9,9 +9,11 @@ class Column extends Component {
       return(
         <div className="ColumnWrapper">
           <div className="Column">
-            {this.props.todos.map((todo) => {
+            {this.props.todos.map((todoID ) => {
+              let todo = this.props.todosIdMap.get(todoID)
               return (
                 <Todo
+                  key = {todo.todoId}
                   todo = {todo}
                   highlightedTodos = {this.props.highlightedTodos}
                   updateSelectedTodo = {this.props.updateSelectedTodo}
@@ -19,7 +21,9 @@ class Column extends Component {
               )
             })}
             <NewTodo
+              placeholder = {'new todo'}
               parentFK = {this.props.parentFK}
+              boardFK = {this.props.boardFK}
               conn = {this.props.conn}/>
           </div>
         </div>

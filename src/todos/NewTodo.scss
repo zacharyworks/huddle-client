@@ -7,6 +7,9 @@
     &-Form {
         margin: 0 10px;
         border-bottom: 1px solid grey;
+        flex-grow: 1;
+        display: flex;
+        justify-content: space-between;
     }
 }
 
