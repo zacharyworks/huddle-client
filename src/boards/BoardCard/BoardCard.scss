@@ -17,6 +17,10 @@
         border-radius: 0 0 15px 15px;
     }
 
+    &-only {
+        border-radius: 15px;
+    }
+
     &-white {
         background-color: #ffffff;
     }
@@ -30,24 +34,28 @@
     }
 
     &-right {
-
+        display: flex;
+        flex-direction: row;
     }
 
-    &-button {
+    &-button, &-code {
         display: block;
         align-content: center;
         justify-content: center;
 
+        border-radius: 30px;
         height: 25px;
-
         border: none;
         padding: 3px 20px;
-        border-radius: 30px;
 
+        margin-left: 5px;
+        color: #fff;
         font-weight: bold;
         font-size: 12px;
-        background-color: #1D63FF;
+    }
 
+    &-button {
+        background-color: #1D63FF;
         color: #fff;
 
         &:focus {
@@ -61,5 +69,18 @@
         &:active {
             background: #5FA4F5;
         }
+    }
+
+    &-code {
+        height: 15px;
+        user-select: text;
+
+        background: #1449BA;
+        padding: 5px 32px;
+        &:focus {
+            outline: none;
+        }
+
+
     }
 }

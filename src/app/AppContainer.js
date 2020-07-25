@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../Header'
 import TodoContainer from '../todos/TodoContainer'
-import BoardContainer from '../boards/BoardContainer';
+import BoardContainer from '../boards/BoardContainer/BoardContainer';
 import User from '../objects/User';
 import Board from '../objects/Board';
 import './AppContainer.scss';

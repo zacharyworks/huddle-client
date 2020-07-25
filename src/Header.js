@@ -3,20 +3,12 @@ import './Header.scss';
 import './hamburgers/hamburgers.scss'
 
 class Header extends Component {
-  logout() {
-    localStorage.clear()
-    window.location.reload()
-  }
-
   render() {
     return (
       <header>
         <div id='head-left'>
           Huddle
-          {/*<button*/}
-          {/*  onClick={e => this.logout()}>*/}
-          {/*  logout*/}
-          {/*</button>*/}
+
         </div>
 
         <div id='head-right'>

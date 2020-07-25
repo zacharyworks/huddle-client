@@ -1,0 +1,62 @@
+.NewBoard {
+  font-family: Roboto;
+  padding: 5px 9px 5px 13px;
+  color: #000;
+  height: 25px;
+  background-color: #ffffff;
+  border-radius: 15px;
+
+  &-Form {
+    display: flex;
+    align-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  input[type="text"] {
+    color: #0F0F0F;
+    outline: none;
+    border-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 14px;
+    height: 20px;
+    width: auto;
+  }
+
+  input[type="text"]::placeholder {
+    color: #0F0F0F;
+  }
+
+  input[type="submit"] {
+    display: block;
+    align-content: center;
+    justify-content: center;
+
+    height: 24px;
+
+    border: none;
+    padding: 3px 20px;
+    border-radius: 30px;
+
+
+    font-weight: bold;
+    font-size: 12px;
+    background-color: #1D63FF;
+
+    color: #fff;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background: #1449BA;
+    }
+
+    &:active {
+      background: #5FA4F5;
+    }
+  }
+}
+
