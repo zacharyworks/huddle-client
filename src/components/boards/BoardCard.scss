@@ -2,12 +2,35 @@
 
     color: black;
     font-family: Roboto;
-    padding: 7px 15px;
 
-    display: flex;
+
+
     align-content: center;
-    justify-content: space-between;
-    height: 25px;
+    height: 39px;
+
+    &-info {
+        display: flex;
+        align-content: center;
+        justify-content: space-between;
+        padding: 7px 15px;
+        height: 25px;
+    }
+
+    &-options {
+        display: flex;
+        align-content: center;
+        background-color: #C7C7C7;
+        padding: 7px 15px;
+        height: 25px;
+        visibility: hidden;
+        &-open {
+            visibility: visible;
+        }
+    }
+
+    &-open {
+        height: 78px;
+    }
 
     &-first {
         border-radius: 15px 15px 0 0;
@@ -83,4 +106,39 @@
 
 
     }
+
+    &-button-options {
+        margin-left: 5px;
+        background-color: rgba(0,0,0,0);
+        outline: none;
+        color: #fff;
+        border: 0 solid #fff;
+    }
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
 }

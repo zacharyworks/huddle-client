@@ -1,4 +1,3 @@
-
 class User {
   constructor(id, email, name, givenName, familyName, pictureURL) {
     this.id = id;

@@ -1,5 +1,4 @@
-
-class Todo {
+class TodoModel {
   constructor(id, status, value, parentFK, boardFK) {
     this.todoID = id;
     this.status = status;
@@ -12,7 +11,6 @@ class Todo {
   addChild(todo) {
     this.children.push(todo);
   }
-
 }
 
-export default Todo;
+export default TodoModel;
