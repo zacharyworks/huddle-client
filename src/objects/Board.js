@@ -1,4 +1,3 @@
-
 class Board {
   constructor(id, name, type) {
     this.boardID = id;

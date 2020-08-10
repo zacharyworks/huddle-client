@@ -4,6 +4,7 @@
     font-family: Roboto;
     padding: 6px 10px 6px 15px;
 
+
     display: flex;
     align-content: center;
     justify-content: space-between;
@@ -18,7 +19,8 @@
     }
 
     &-right {
-
+        display: flex;
+        flex-direction: row;
     }
 
 
@@ -32,6 +34,7 @@
         border: none;
         padding: 3px 20px;
         border-radius: 30px;
+        margin-left: 5px;
 
         font-weight: bold;
         font-size: 12px;

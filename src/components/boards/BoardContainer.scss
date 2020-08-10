@@ -1,0 +1,55 @@
+.BoardContainer {
+
+    padding: 80px 5% 0 5%;
+    overflow: scroll;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 0 auto;
+    max-width: 850px;
+    &-Heading {
+        font-weight: bold;
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+
+    animation: open-board-container-animation .1s ease-out normal;
+}
+
+@keyframes open-board-container-animation {
+    from {
+        transform: scale(.99);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.BoardContainer > div {
+    margin: 5px 10px;
+}
+
+.card {
+    flex: 1 1 0px;
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 380px;
+    max-width: 450px;
+}
+
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: .5;
+    flex-direction: row;
+}
+
+.half-card {
+    min-width: 100px;
+    flex-grow: .35;
+    margin-top: 16px;
+}
