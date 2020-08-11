@@ -89,12 +89,11 @@ class TodoContainer extends Component {
           updateTodo.parentFK = action.payload.parentFK
 
           newParent.addChild(updateTodo.todoID)
-          updateTodo.status = action.payload.status
-
           newIdMap.set(newParent.todoID, newParent);
           newIdMap.set(oldParent.todoID, oldParent);
         }
 
+        updateTodo.status = action.payload.status
         updateTodo.value = action.payload.value
         newIdMap.set(updateTodo.todoID, updateTodo);
 
