@@ -6,6 +6,13 @@ class User {
     this.givenName = givenName;
     this.familyName = familyName;
     this.pictureURL = pictureURL;
+    this.colour = this.getColour();
+    this.selectedTodo = null;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getColour() {
+    return 'hsla(' + (Math.random() * 360) + ', 100%, 80%, 1)';
   }
 }
 

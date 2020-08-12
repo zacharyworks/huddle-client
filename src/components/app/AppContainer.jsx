@@ -40,6 +40,11 @@ class AppContainer extends Component {
     this.setState({ openBoardName: name });
   }
 
+  // prevent server timing out connection
+  poll = () => {
+    this.state.conn.send('ping');
+  }
+
   toggleDash() {
     const { showDash } = this.state;
     this.setState({ showDash: !showDash });
@@ -47,8 +52,9 @@ class AppContainer extends Component {
 
   connectWebSocket() {
     if (window.WebSocket) {
-      const conn = new WebSocket('ws://ec2-3-10-221-71.eu-west-2.compute.amazonaws.com:8080/ws');
+      const conn = new WebSocket('ws://localhost:8080/ws');
       this.setState({ conn });
+      setInterval(this.poll, 50000);
       // Reader for incoming messages
       conn.onmessage = this.handleMessage;
     } else {
@@ -107,7 +113,7 @@ class AppContainer extends Component {
         const form = document.createElement('form');
         document.body.appendChild(form);
         form.method = 'post';
-        form.action = 'http://ec2-3-10-221-71.eu-west-2.compute.amazonaws.com:8080/login';
+        form.action = 'http://localhost:8080/login';
         const sessionInput = document.createElement('input');
         sessionInput.type = 'hidden';
         sessionInput.name = 'session';

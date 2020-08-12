@@ -120,12 +120,18 @@ class TodoContainer extends Component {
       }
 
       case 'Delete': {
-        // Get deleted to-do & it's parent
-        let deleteTodo = this.state.todosIdMap.get(action.payload.todoID)
-        let deletedParent = this.state.todosIdMap.get(deleteTodo.parentFK)
 
+        // Get deleted to-do & it's parent
         let todoIDMap = this.state.todosIdMap
+
+        let deleteTodo = todoIDMap.get(action.payload.todoID)
+        let deletedParent = todoIDMap.get(deleteTodo.parentFK)
         let selectedTodo = this.state.selectedTodo
+
+        // Remove peers to-do selected marks
+        Array.from(deleteTodo.selectedBy).map((peer) => {
+          this.removePeerSelected(peer.selectedTodo, peer, todoIDMap)
+        });
 
         // Filter out deleted to-do from its parents children
         deletedParent.children = deletedParent.children.filter(todoID => todoID !== deleteTodo.todoID)
@@ -182,9 +188,55 @@ class TodoContainer extends Component {
         this.setState({peers: peers});
         break;
       }
+      case 'PeerSelected': {
+        // retrieve copy of maps
+
+        let todoIdMap = this.state.todosIdMap;
+        let peerMap = this.state.peers;
+
+        let peer = peerMap.get(action.payload.userID);
+
+        // if they had a to-do selected, remove from that set
+        if(peer.selectedTodo != null) {
+          this.removePeerSelected(peer.selectedTodo, peer, todoIdMap)
+        }
+        // add to newly selected to-do, and update peer
+        let todo = todoIdMap.get(action.payload.todoID);
+        peer.selectedTodo = todo.todoID;
+        this.addPeerSelected(action.payload.todoID, peer, todoIdMap);
+
+        peerMap.set(peer.id, peer);
+        this.setState({todosIdMap: todoIdMap, peers: peerMap});
+        break;
+      }
       default:
         break;
     }
+  }
+
+  addPeerSelected(todoID, peer, todoIdMap) {
+    let todo = todoIdMap.get(todoID);
+    todo.selectedBy.add(peer);
+    todoIdMap.set(todo.todoID, todo);
+
+    if(todo.parentFK === null) {
+      return;
+    }
+    this.addPeerSelected(todo.parentFK, peer, todoIdMap)
+  }
+
+  removePeerSelected(todoID, peer, todoIdMap) {
+    if(!todoIdMap.has(todoID)) {
+      return;
+    }
+    let todo = todoIdMap.get(todoID);
+    todo.selectedBy.delete(peer);
+    todoIdMap.set(todo.todoID, todo);
+
+    if(todo.parentFK === null) {
+      return;
+    }
+    this.removePeerSelected(todo.parentFK, peer, todoIdMap)
   }
 
   componentDidMount() {

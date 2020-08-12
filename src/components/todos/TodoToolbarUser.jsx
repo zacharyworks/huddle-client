@@ -6,9 +6,14 @@ import User from '../../objects/User';
 class TodoToolbarUser extends Component {
   render() {
     const { user } = this.props;
+
+    const style = {
+      border: `2px solid ${user.colour}`,
+    };
+    console.log(user.colour);
     return (
       <div className="TodoToolbarUser">
-        <img src={user.pictureURL} alt={user.name} referrerPolicy="no-referrer" />
+        <img src={user.pictureURL} alt={user.name} referrerPolicy="no-referrer" style={style} />
       </div>
     );
   }

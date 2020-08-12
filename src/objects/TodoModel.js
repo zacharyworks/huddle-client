@@ -6,6 +6,7 @@ class TodoModel {
     this.parentFK = parentFK;
     this.boardFK = boardFK;
     this.children = [];
+    this.selectedBy = new Set();
   }
 
   addChild(todo) {

@@ -114,6 +114,13 @@ class Todo extends Component {
             {this.props.todo.value}
           </div>
         }
+        {
+          Array.from(this.props.todo.selectedBy).map((user) => {
+            return(
+              <span className="UserDot" style={{border: `2px solid ${user.colour}`}}/>
+            )
+          })
+        }
         <div className="Todo-count">
           {(this.props.todo.children.length === 0 ? '' : (this.props.todo.children.length))}
         </div>
