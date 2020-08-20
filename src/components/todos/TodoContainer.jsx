@@ -13,7 +13,7 @@ class TodoContainer extends Component {
     super(props)
     this.state = {
       todosIdMap: new Map(),
-      selectedTodo: '',
+      selectedTodo: null,
       highlightedTodos: new Set(),
       renderQueue: [],
       peers: new Map(),
@@ -21,6 +21,7 @@ class TodoContainer extends Component {
     this.updateSelectedTodo = this.updateSelectedTodo.bind(this);
     this.handleTodoAction = this.handleTodoAction.bind(this);
   }
+
 
   componentDidUpdate(prevState) {
     if (this.props.action !== prevState.action && this.props.action.subset != null) {
@@ -36,7 +37,6 @@ class TodoContainer extends Component {
   handleTodoAction(action) {
     switch (action.type) {
       case 'Init': {
-
         //Clear state
         this.setState({
           todosIdMap: new Map(),
@@ -70,7 +70,15 @@ class TodoContainer extends Component {
           }
         }
 
+        // We know map will always have 0 key, because we
+        // added the 'invisible' to-do with it.
         this.updateSelectedTodo(this.state.todosIdMap.get(0).children[0])
+
+        // Update session with first selected todo
+        const updateTodoAction = new Action(
+            "Session", "Select", this.state.todosIdMap.get(this.state.todosIdMap.get(0).children[0]).todoID
+        );
+        this.props.conn.send(JSON.stringify(updateTodoAction));
         break
       }
 
@@ -109,18 +117,18 @@ class TodoContainer extends Component {
           action.payload.parentFK,
           action.payload.boardFK,
         )
-        this.setState({ todosIdMap: this.state.todosIdMap.set(newTodo.todoID, newTodo) })
+        this.setState({ todosIdMap: this.state.todosIdMap.set(newTodo.todoID, newTodo)})
         if (this.state.todosIdMap.has(newTodo.parentFK)) {
           this.state.todosIdMap.get(newTodo.parentFK).addChild(newTodo.todoID)
         }
-        this.state.selectedTodo == null ?
+
+        this.state.selectedTodo.todoID === 0 ?
           this.updateSelectedTodo(newTodo.todoID) :
           this.updateSelectedTodo(this.state.selectedTodo.todoID)
         break
       }
 
       case 'Delete': {
-
         // Get deleted to-do & it's parent
         let todoIDMap = this.state.todosIdMap
 
@@ -184,8 +192,12 @@ class TodoContainer extends Component {
       }
       case 'PeerLeft': {
         const peers = this.state.peers;
+        const peer = this.state.peers.get(action.payload.oauthID);
+        const todoIDMap = this.state.todosIdMap;
+        this.removePeerSelected(peer.selectedTodo, peer, todoIDMap)
         peers.delete(action.payload.oauthID);
-        this.setState({peers: peers});
+        this.setState({peers: peers, todosIdMap: todoIDMap});
+
         break;
       }
       case 'PeerSelected': {
@@ -290,14 +302,14 @@ class TodoContainer extends Component {
     let todo = this.state.todosIdMap.get(todoID);
     this.setState({selectedTodo: todo})
 
-    // Add parents of now selected todo
+    // Add parents of now selected to-do
     while(todo.parentFK != null) {
       renderQueue.unshift(todo);
       highlightedTodoSet.add(todo.todoID)
       todo = this.state.todosIdMap.get(todo.parentFK);
     }
 
-    // Add top level todo
+    // Add top level to-do
     let topTodo = this.state.todosIdMap.get(0);
     renderQueue.unshift(topTodo);
 
@@ -309,7 +321,7 @@ class TodoContainer extends Component {
   render() {
     if(!this.props.board || !this.props.show) {
       return null
-    } else if (this.state.renderQueue.length === 0) {
+    } if (this.state.renderQueue.length === 0) {
       // If there are no todos, show a newTodo to add 1st one
       return(
         <div className="TodoContainer">

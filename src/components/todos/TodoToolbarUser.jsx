@@ -10,7 +10,6 @@ class TodoToolbarUser extends Component {
     const style = {
       border: `2px solid ${user.colour}`,
     };
-    console.log(user.colour);
     return (
       <div className="TodoToolbarUser">
         <img src={user.pictureURL} alt={user.name} referrerPolicy="no-referrer" style={style} />

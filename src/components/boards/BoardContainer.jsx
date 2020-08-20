@@ -73,27 +73,28 @@ class BoardContainer extends Component {
     if (this.props.show) {
       return (
         <div className="BoardContainer">
-
-          <div className="card">
-            <div className="BoardContainer-Heading">{(this.state.boards.length > 0 ? 'Your Boards' : '')}</div>
-            <div className="BoardCards">
-              {
-                  this.state.boards.map((board, index) => (
-                    <BoardCard
-                      index={index}
-                      toggleDash={this.props.toggleDash}
-                      setBoardName={this.props.setBoardName}
-                      lastIndex={this.state.boards.length - 1}
-                      conn={this.props.conn}
-                      key={board.boardID}
-                      board={board}
-                      boardCode={this.state.boardCodeMap.get(board.boardID)}
-                    />
-                  ))
-              }
-            </div>
-
-          </div>
+          {(this.state.boards.length > 0
+            ? (
+              <div className="card">
+                <div className="BoardContainer-Heading">Your Boards</div>
+                <div className="BoardCards">
+                  {
+                      this.state.boards.map((board, index) => (
+                        <BoardCard
+                          index={index}
+                          toggleDash={this.props.toggleDash}
+                          setBoardName={this.props.setBoardName}
+                          lastIndex={this.state.boards.length - 1}
+                          conn={this.props.conn}
+                          key={board.boardID}
+                          board={board}
+                          boardCode={this.state.boardCodeMap.get(board.boardID)}
+                        />
+                      ))
+                  }
+                </div>
+              </div>
+            ) : '')}
           <div className="card">
             <div className="card">
               <div className="BoardContainer-Heading">Profile</div>
