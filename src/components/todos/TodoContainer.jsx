@@ -34,21 +34,25 @@ class TodoContainer extends Component {
     }
   }
 
+  resetBoard() {
+    this.setState({
+      todosIdMap: new Map(),
+      selectedTodo: null,
+      highlightedTodos: new Set(),
+      renderQueue: [],
+    })
+
+    let topLevelTodo = new TodoModel(0, 0, 'invisible', null, this.props.board.boardID)
+    this.setState({ todosIdMap: this.state.todosIdMap.set(0, topLevelTodo) })
+    this.setState({ selectedTodo: this.state.todosIdMap.get(0) })
+  }
+
   handleTodoAction(action) {
     switch (action.type) {
       case 'Init': {
         //Clear state
-        this.setState({
-          todosIdMap: new Map(),
-          selectedTodo: null,
-          highlightedTodos: new Set(),
-          renderQueue: [],
-          peers: new Map(),
-        })
-
-        let topLevelTodo = new TodoModel(0, 0, 'invisible', null, this.props.board.boardID)
-        this.setState({ selectedTodo: this.state.todosIdMap.get(0) })
-        this.setState({ todosIdMap: this.state.todosIdMap.set(0, topLevelTodo) })
+        this.resetBoard();
+        this.setState({peers: new Map()})
 
         if (!action.payload) {
           break
@@ -122,6 +126,7 @@ class TodoContainer extends Component {
           this.state.todosIdMap.get(newTodo.parentFK).addChild(newTodo.todoID)
         }
 
+        // Should we set the created to-do as selected
         this.state.selectedTodo.todoID === 0 ?
           this.updateSelectedTodo(newTodo.todoID) :
           this.updateSelectedTodo(this.state.selectedTodo.todoID)
@@ -131,6 +136,11 @@ class TodoContainer extends Component {
       case 'Delete': {
         // Get deleted to-do & it's parent
         let todoIDMap = this.state.todosIdMap
+
+        if(todoIDMap.length === 1) {
+          alert('You must have at least 1 todo');
+          return;
+        }
 
         let deleteTodo = todoIDMap.get(action.payload.todoID)
         let deletedParent = todoIDMap.get(deleteTodo.parentFK)
@@ -288,6 +298,15 @@ class TodoContainer extends Component {
   }
 
   updateSelectedTodo(todoID) {
+    let todo = this.state.todosIdMap.get(todoID);
+    if (todoID === 0) {
+      if(todo.children.length > 0) {
+        return this.updateSelectedTodo(todo.children[0])
+      } else {
+        this.resetBoard();
+        return;
+      }
+    }
     // update remote state if there is a change
     if(this.state.selectedTodo && todoID !== this.state.selectedTodo.todoID) {
       const updateTodoAction = new Action(
@@ -299,7 +318,6 @@ class TodoContainer extends Component {
     // otherwise just update locally
     let renderQueue = [];
     let highlightedTodoSet = new Set();
-    let todo = this.state.todosIdMap.get(todoID);
     this.setState({selectedTodo: todo})
 
     // Add parents of now selected to-do
@@ -316,6 +334,7 @@ class TodoContainer extends Component {
     // Update the state
     this.setState({renderQueue: renderQueue});
     this.setState({highlightedTodos: highlightedTodoSet});
+    console.log(renderQueue)
   }
 
   render() {
