@@ -1,9 +1,7 @@
 .BoardCard {
 
     color: black;
-    font-family: Roboto;
-
-
+    font-family: 'Roboto', sans-serif;
 
     align-content: center;
     height: 39px;
@@ -53,7 +51,7 @@
 
     &-left {
         font-weight: bold;
-        padding-top: 5px;
+        padding-top: 3px;
     }
 
     &-right {

@@ -13,6 +13,7 @@ import Board from '../../objects/Board';
 // Css
 import './AppContainer.scss';
 import Action from '../../objects/Action';
+import LandingPage from "../landing/LandingPage";
 
 class AppContainer extends Component {
 
@@ -52,7 +53,7 @@ class AppContainer extends Component {
 
   connectWebSocket() {
     if (window.WebSocket) {
-      const conn = new WebSocket('ws://localhost:8080/ws');
+      const conn = new WebSocket('ws://huddle.cgb87wzmrqff.eu-west-2.rds.amazonaws.com:8080/ws');
       this.setState({ conn });
       setInterval(this.poll, 50000);
       // Reader for incoming messages
@@ -89,10 +90,7 @@ class AppContainer extends Component {
       case 'Connected': {
         // Check if we have a session with the server
         if (localStorage.getItem('SessionID') == null) {
-          this.state.conn.send(`{
-                "subset":"Session",
-                "type":"RequestNew"
-              }`);
+
         } else {
           this.state.conn.send(`{
                 "subset":"Session",
@@ -113,7 +111,7 @@ class AppContainer extends Component {
         const form = document.createElement('form');
         document.body.appendChild(form);
         form.method = 'post';
-        form.action = 'http://localhost:8080/login';
+        form.action = 'http://huddle.cgb87wzmrqff.eu-west-2.rds.amazonaws.com:8080/login';
         const sessionInput = document.createElement('input');
         sessionInput.type = 'hidden';
         sessionInput.name = 'session';
@@ -161,32 +159,40 @@ class AppContainer extends Component {
       user,
       board,
     } = this.state;
+    if (localStorage.getItem('SessionID') == null) {
+      return (
+        <LandingPage
+          conn={this.state.conn}
+        />
+      )
+    } else {
+      return (
+        <div className="AppContainer">
+          <AppHeader
+            openBoardName={openBoardName}
+            toggleDash={this.toggleDash}
+            dashOpen={showDash}
+          />
+          <BoardContainer
+            toggleDash={this.toggleDash}
+            setBoardName={this.setOpenBoardName}
+            show={showDash}
+            action={action}
+            conn={conn}
+            user={user}
+          />
+          <TodoContainer
+            show={!showDash}
+            action={action}
+            conn={conn}
+            user={user}
+            board={board}
+          />
 
-    return (
-      <div className="AppContainer">
-        <AppHeader
-          openBoardName={openBoardName}
-          toggleDash={this.toggleDash}
-          dashOpen={showDash}
-        />
-        <BoardContainer
-          toggleDash={this.toggleDash}
-          setBoardName={this.setOpenBoardName}
-          show={showDash}
-          action={action}
-          conn={conn}
-          user={user}
-        />
-        <TodoContainer
-          show={!showDash}
-          action={action}
-          conn={conn}
-          user={user}
-          board={board}
-        />
+        </div>
+      );
+    }
 
-      </div>
-    );
   }
 }
 

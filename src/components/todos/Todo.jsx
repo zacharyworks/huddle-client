@@ -38,9 +38,23 @@ class Todo extends Component {
     ev.dataTransfer.setData("todoID", todoID);
   }
 
+  isParent = (todoID, newParentID) => {
+    if (newParentID === todoID) {
+      alert('You cannot make a todo a subtask of its own subtask')
+      return true;
+    }
+    if (newParentID === 0) {
+      return false;
+    }
+    let newParent = this.props.todosIdMap.get(newParentID);
+    return this.isParent(todoID, newParent.parentFK)
+  }
+
   onDrop = (ev, id) => {
     let todoID = parseInt(ev.dataTransfer.getData("todoID"));
-    if (todoID !== id) {
+    // check that to-do is not a child of this to-do
+
+    if (todoID !== id && !this.isParent(todoID, id)) {
       let todo = Object.assign({}, this.props.todosIdMap.get(todoID));
       const oldParentFK = todo.parentFK;
       todo.parentFK = id;
