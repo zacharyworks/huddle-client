@@ -53,7 +53,7 @@ class AppContainer extends Component {
 
   connectWebSocket() {
     if (window.WebSocket) {
-      const conn = new WebSocket('ws://huddle.cgb87wzmrqff.eu-west-2.rds.amazonaws.com:8080/ws');
+      const conn = new WebSocket('ws://ec2-3-10-221-71.eu-west-2.compute.amazonaws.com:8080/ws');
       this.setState({ conn });
       setInterval(this.poll, 50000);
       // Reader for incoming messages
@@ -111,7 +111,7 @@ class AppContainer extends Component {
         const form = document.createElement('form');
         document.body.appendChild(form);
         form.method = 'post';
-        form.action = 'http://huddle.cgb87wzmrqff.eu-west-2.rds.amazonaws.com:8080/login';
+        form.action = 'http://ec2-3-10-221-71.eu-west-2.compute.amazonaws.com:8080/login';
         const sessionInput = document.createElement('input');
         sessionInput.type = 'hidden';
         sessionInput.name = 'session';
